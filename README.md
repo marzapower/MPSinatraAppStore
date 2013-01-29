@@ -29,6 +29,11 @@ rerun 'rackup'
 
 This will automatically relaunch your local server instance whenever a source file is modified.
 
+### Sandbox
+
+To test the calls in sandbox mode, you have to change the `DEBUG` constant at the beginning of `server.rb`. Set this
+constant to `true` to sandbox all the calls, or set it to `false` to call the Apple production servers.
+
 ## API
 
 The server will support 3 different calls, to:
