@@ -11,21 +11,21 @@ Purchase = DB[:purchase]
 ##
 ## Verifies with Apple that the receipt is valid
 ##
-post '/verifyReceipt/:receipt_data'  do
+post '/verifyReceipt'  do
   content_type 'application/json'
-  result = open(appleURL(), :method => :post)
+  result = open(appleURL(), :method => :post, :body => {"receipt-data" => params[:receipt_data]}.to_json)
   json = JSON.parse(result.string)
-  if (json[:status] == "0")
-    result(0)
+  if (json[:status].to_i == 0)
+    result(0, json)
   else
-    result(1, json)
+    result(1, json.merge({:original_receipt => params[:receipt_data]}))
   end
 end
 
 ##
 ## Registers a purchase in the local database
 ##
-post '/registerPurchase/:product_identifier/:device_id' do
+post '/registerPurchase' do
   begin
     Purchase.insert({
                       :product_identifier => params[:product_identifier],
@@ -43,7 +43,7 @@ end
 ## Gathers local data to see if a purchase is valid or not,
 ## and also checks if it's validity expired or not (if needed)
 ##
-post '/verifyPurchase/:product_identifier/:device_id' do
+post '/verifyPurchase' do
   purchase = Purchase.where({
                               :product_identifier => params[:product_identifier],
                               :device_id => params[:device_id]
