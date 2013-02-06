@@ -59,7 +59,12 @@ The `data` parameter could be returned from API calls that need to send back cus
 
 ### Verify receipt
 
-Send `POST` calls to: `http://server/verifyReceipt/:purchase_receipt`
+Send `POST` calls to: `http://server/verifyReceipt`
+with body:
+
+```
+{:purchase_receipt => "myBase64EncodedPurchaseReceipt"}
+```
 
 ### Register purchase
 
