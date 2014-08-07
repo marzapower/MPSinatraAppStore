@@ -2,6 +2,8 @@
 
 A Sinatra implementation for a web server that talks with Apple for In-app-purchase-related stuff.
 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 ## Installation
 
 Just download the code, then run
